@@ -1,4 +1,3 @@
-import express from "express";
 import bodyParser from "body-parser";
 import { RegisterRoutes } from "../build/routes";
 import express, { Response as ExResponse, Request as ExRequest } from "express";
