@@ -6,6 +6,71 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"IngredientCategory": {
+				"enum": [
+					0,
+					1,
+					2,
+					3,
+					4,
+					5,
+					6,
+					7
+				],
+				"type": "number"
+			},
+			"Ingredient": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"category": {
+						"$ref": "#/components/schemas/IngredientCategory"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"unit": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"description": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					},
+					"nutritionFacts": {
+						"properties": {},
+						"additionalProperties": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"category",
+					"quantity",
+					"unit",
+					"price",
+					"description",
+					"image",
+					"nutritionFacts"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"User": {
 				"properties": {
 					"id": {
@@ -80,6 +145,65 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/ingredients/{ingredientId}": {
+			"get": {
+				"operationId": "GetIngredient",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Ingredient"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/ingredients/category/{category}": {
+			"get": {
+				"operationId": "GetByCategory",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Ingredient"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/IngredientCategory"
+						}
+					}
+				]
+			}
+		},
 		"/users/{userId}": {
 			"get": {
 				"operationId": "GetUser",

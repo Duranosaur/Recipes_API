@@ -10,7 +10,6 @@ export class UserService {
             name: name ?? "",
             status: "",
             phoneNumbers: [],
-
         };
     }
 
